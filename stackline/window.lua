@@ -229,16 +229,8 @@ function Window:getIndicatorPosition() -- {{{
     local c = self.config
     self.screenFrame = self.screen:fullFrame()
     self.side = self:getScreenSide()
-
-    -- DONE: Limit stack left/right side to screen boundary to prevent drawing offscreen https://github.com/AdamWagner/stackline/issues/21
-    if self.side == 'right' then xval = (self.frame.x + self.frame.w) + c.offset.x   -- position indicators on right edge
-        if xval + self.width > self.screenFrame.w then           -- don't go beyond the right screen edge
-            xval = self.screenFrame.w - self.width
-        end
-    else   -- side is 'left'
-        xval = self.frame.x - (self.width + c.offset.x)     -- position indicators on left edge
-        xval = math.max(xval, 0)                            -- don't go beyond left screen edge
-    end
+    -- set Indicator to topright
+    xval = (self.frame.x + self.frame.w) - self.width - c.offset.x   -- position indicators on right edge
     return xval
 end -- }}}
 
